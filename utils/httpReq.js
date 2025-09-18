@@ -13,5 +13,16 @@ const response=await fetch(`${BASE_URL}/${path}`, {
      } catch (error) {
        alert("an error occured")
      }
+};
+
+const getData=async(path)=>{
+  try{
+       const response=await fetch(`${BASE_URL}/${path}`)
+       const json=await response.json()
+       return json
+  }
+  catch(error){
+        alert("an error occured")
+  }
 }
-export {postData}
+export {postData,getData}
