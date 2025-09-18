@@ -1,3 +1,5 @@
+import { showModal } from "./modal.js"
+
 const validateUsername=username=>{
     const regex=/^[a-zA-Z\d_]{4,16}$/
     const result=regex.test(username)
@@ -14,9 +16,9 @@ const validateForm=(username,password)=>{
      if(usernameResult && passwordResult){
         return true
      }else if(!usernameResult){
-       alert("username is not valid")
+       showModal("username is not valid")
      }else if(!passwordResult){
-        alert("password must be between 4 and 20 characters!")
+        showModal("password must be between 4 and 20 characters!")
      }
 }
 export default validateForm
