@@ -2,13 +2,17 @@ import { getCookie } from "./utils/cookie.js"
 import { getData } from "./utils/httpReq.js"
 import { shortenText } from "./utils/stringFunc.js"
 
+let allProducts=null
+
 const loginButton=document.getElementById("login")
 const dashboardButton=document.getElementById("dashboard")
 const mainContent=document.getElementById("products")
+const searchButton=document.querySelector("button")
+const inputBox=document.querySelector("input")
+
 
 const showProducts=(products)=>{
     mainContent.innerHTML=""
-      console.log(products)
     products.forEach((product) => {
         const jsx=`
            <div>
@@ -44,7 +48,15 @@ const init=async()=>{
     dashboardButton.style.display="none"
    }
 
-  const allProducts=await getData("products")
+   allProducts=await getData("products")
   showProducts(allProducts)
 }
+
+const searchHandler=()=>{
+   const query=inputBox.value.trim().toLowerCase()
+   if(!query) return showProducts(allProducts)
+   const filteredProduct=allProducts.filter(product=>product.title.toLowerCase().includes(query))
+   showProducts(filteredProduct)
+}
 document.addEventListener("DOMContentLoaded",init)
+searchButton.addEventListener("click",searchHandler)
