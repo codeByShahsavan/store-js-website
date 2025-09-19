@@ -9,7 +9,7 @@ const dashboardButton=document.getElementById("dashboard")
 const mainContent=document.getElementById("products")
 const searchButton=document.querySelector("button")
 const inputBox=document.querySelector("input")
-
+const listItems=document.querySelectorAll("li")
 
 const showProducts=(products)=>{
     mainContent.innerHTML=""
@@ -58,5 +58,24 @@ const searchHandler=()=>{
    const filteredProduct=allProducts.filter(product=>product.title.toLowerCase().includes(query))
    showProducts(filteredProduct)
 }
+
+const filterHandler=event=>{
+   const category=event.target.innerText.toLowerCase()
+
+   listItems.forEach(li=>{
+       if(li.innerText.toLowerCase()===category){
+        li.className="selected"
+       }else{
+        li.className=""
+       }
+   })
+
+   if(category==="all") return showProducts(allProducts)
+
+   const filteredProduct=allProducts.filter(product=>product.category.toLowerCase()===category)
+   showProducts(filteredProduct)
+}
+
 document.addEventListener("DOMContentLoaded",init)
 searchButton.addEventListener("click",searchHandler)
+listItems.forEach((li)=>li.addEventListener("click",filterHandler))
